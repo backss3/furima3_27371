@@ -1,24 +1,74 @@
-# README
+# Furima-27371 DB
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users_table
+|Column|Type|Options|
+|------|----|-------|
+|nickname|string|null: false|
+|email|string|null: false|
+|password|string|null: false|
+|first_name|string|null: false|
+|family_name|string|null: false|
+|first_name_kana|string|null: false|
+|family_name_kane|string|null: false|
+|birthday|integer|null: false|
 
-Things you may want to cover:
+### Association
+- has_many :items
+- has_many :comments
+- belongs_to :address
+- has_many :deal_items
 
-* Ruby version
 
-* System dependencies
+## items_table
+|Column|Type|Options|
+|------|----|-------|
+|image|references|null: false|
+|name|string|null: false|
+|description|text|null: false|
+|category_id|references|null: false|
+|status|references|null: false|
+|cost|integer|null: false|
+|prefecture_id|integer|null: false|
+|day|integer|null: false|
+|price|integer|null: false|
 
-* Configuration
+### Association
+- belongs_to :user
+- has_many :comments
+- belongs_to :deal_item
 
-* Database creation
+## deal_item_table
+|Column|Type|Options|
+|------|----|-------|
+|item_id|integer|null: false, foreign_key: true|
+|user_id|integer|null: false, foreign_key: true|
 
-* Database initialization
+### Association
+- belongs_to :user
+- belongs_to :item
 
-* How to run the test suite
+## address_table
+|Column|Type|Options|
+|------|----|-------|
+|item_id|integer|null: false, foreign_key: true|
+|post_cord|integer|null: false|
+|prefecture|string|null: false|
+|city|string|null: false|
+|address|string|null: false|
+|building|string|
+|phone_number|integer|null: false|
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+- belongs_to :user
 
-* Deployment instructions
+## comments_table
+|Column|Type|Options|
+|------|----|-------|
+|user_id|integer|null: false, foreign_key: true|
+|item_id|integer|null: false, foreign_key: true|
+|comments|text|
 
-* ...
+### Association
+- belongs_to :user
+- belongs_to :item
+
